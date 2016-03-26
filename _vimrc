@@ -1,6 +1,6 @@
 " _vimrc Alexander Huber 
 " für Gvim 7.4 auf Windows 8
-" Version 01/12/15
+" Version 26/03/16
 
 
 set nocompatible
@@ -18,6 +18,14 @@ filetype plugin on
 filetype indent on
 
 syntax on 
+
+" Das Verzeichnis für Viewdateien neu setzen 
+" (Standard-Verzeichnis in Windows hat keinen Schreibzugriff für Normalnutzer)
+set viewdir=$HOME/vimfiles/view
+
+" Automatisches Speichern und Laden von Views (vor allem Faltungen)
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview 
 
 " Encoding setzen (sollte Probleme mit Umlauten vermeiden)
 set encoding=utf-8
@@ -48,6 +56,10 @@ set statusline=%t\ -\ Zeile:\ %l/%L\ -\ Spalte:\ %c
 :nnoremap <F1> :set number!<CR>
 :inoremap <F1> <Esc>:set number!<CR>
 
+" Mit 9 im Normalmodus an Zeilenende springen 
+" (leichter zu erreichen als $)
+:nnoremap 9 $
+
 " F2 speichert ab und setzt vim im Einfügemodus
 " zurück in den Normalmodus
 :nnoremap <F2> :w<CR>
@@ -59,7 +71,9 @@ set statusline=%t\ -\ Zeile:\ %l/%L\ -\ Spalte:\ %c
 :inoremap <F3> <Esc>"+gP
 
 " Pfeil runter geht zum nächsten Buffer
+" Ebenso ii im Normalmodus
 :nnoremap <DOWN> :bn<CR>
+:nnoremap ii :bn<CR>
 
 " Pfeil hoch geht zum vorherigen Buffer
 :nnoremap <UP> :bp<CR>
